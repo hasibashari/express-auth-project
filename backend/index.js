@@ -1,19 +1,28 @@
-// 1. Import the necessary modules
+// Import the necessary modules
 require("dotenv").config();
 const express = require("express");
+const authRoutes = require("./routes/authRoutes");
 
-// 2. Initialize the Express application
+// Initialize the Express application
 const app = express();
 
-// 3. Specify the port
+// Middleware to parse JSON bodies
+app.use(express.json());
+
+// Specify the port
 const PORT = process.env.PORT || 3001;
 
-// 4. Create a simple route
+// Create a simple route
 app.get("/", (req, res) => {
    res.send("Hello, World! Your backend is running.");
 });
 
-// 5. Start the server
+// Use the auth routes
+app.use("/auth", authRoutes);
+
+
+
+// Start the server
 app.listen(PORT, () => {
    console.log(`Server is running on port http://localhost:${PORT}`);
 });
