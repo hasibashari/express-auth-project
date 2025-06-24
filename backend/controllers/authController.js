@@ -1,5 +1,8 @@
 const prisma = require("../lib/prisma");
 const bcrypt = require("bcryptjs");
+const e = require("express");
+const jwt = require("jsonwebtoken");
+
 
 exports.register = async (req, res) => {
     // 1. Ambil nama, email, dan password dari request body
@@ -47,3 +50,51 @@ exports.register = async (req, res) => {
         return res.status(500).json({ message: "Internal server error" });
     }
 };
+
+exports.login = async (req, res) => {
+    // 1. Ambil email dan password dari request body
+    const { email, password } = req.body;
+
+    try {
+        // 2. Cari user berdasarkan email
+        const user = await prisma.user.findUnique({
+            where: { email: email },
+        });
+        // Jika user tidak ditemukan, kembalikan error
+        if (!user) {
+            return res.status(400).json({ message: "Invalid email or password" });
+        }
+        // 3. Bandingkan password yang dikirim dengan hashed password di database
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        // Jika password tidak valid, kembalikan error
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: "Invalid email or password" });
+        }
+
+        // 4. Jika valid, buat JWT Payload
+        const payload = {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+        };
+
+        // 5. Buat dan tandatangani JWT
+        const token = jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" } // Token berlaku selama 1 jam
+        );
+
+        // 6. Kirim token sebagai respons
+        res.status(200).json({
+            message: "Login successful",
+            token: token
+        });
+
+    } catch (error) {
+        console.error("Error during login:", error);
+        return res.status(500).json({ message: "Internal server error" });
+
+    }
+}
