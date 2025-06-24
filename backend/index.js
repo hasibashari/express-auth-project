@@ -1,12 +1,14 @@
 // Import the necessary modules
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const authRoutes = require("./routes/authRoutes");
 
 // Initialize the Express application
 const app = express();
 
 // Middleware to parse JSON bodies
+app.use(cors())
 app.use(express.json());
 
 // Specify the port
