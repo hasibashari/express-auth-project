@@ -99,7 +99,8 @@ exports.login = async (req, res) => {
     }
 }
 
-// Route Terproteksi untuk Uji Coba
+// Untuk mendapatkan data user saat ini
+// Middleware 'protect' sudah digunakan untuk melindungi route ini
 // @desc    Get current user data
 // @route   GET /api/auth/me
 // @access  Private
