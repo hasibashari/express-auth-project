@@ -98,3 +98,12 @@ exports.login = async (req, res) => {
 
     }
 }
+
+// Route Terproteksi untuk Uji Coba
+// @desc    Get current user data
+// @route   GET /api/auth/me
+// @access  Private
+exports.getMe = (req, res) => {
+    // Data 'req.user' sudah dilampirkan oleh middleware 'protect'
+    res.status(200).json(req.user);
+};
