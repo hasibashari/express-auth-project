@@ -52,7 +52,7 @@ Pastikan Anda sudah menginstal perangkat lunak berikut:
 1. **Clone repositori ini:**
 
    ```bash
-   git clone [https://github.com/username-anda/nama-repo-anda.git](https://github.com/username-anda/nama-repo-anda.git)
+   git clone [https://github.com/hasibashari/express-auth-project.git)
    cd nama-repo-anda
    ```
 
