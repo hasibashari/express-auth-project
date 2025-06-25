@@ -53,7 +53,7 @@ Pastikan Anda sudah menginstal perangkat lunak berikut:
 
    ```bash
    git clone https://github.com/hasibashari/express-auth-project.git
-   cd nama-repo-anda
+   cd express-auth-project
    ```
 
 2. **Setup Backend:**

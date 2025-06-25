@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('token', data.token);
 
                 // Redirect ke halaman dashboard
-                window.location.href = 'dashboard.html';
+                window.location.href = 'http://localhost:3001/dashboard';
 
             } catch (error) {
                 loginMessage.textContent = error.message;
@@ -83,13 +83,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Logika Dashboard & Proteksi
-    if (window.location.pathname === '/dashboard.html') {
+    if (window.location.pathname === 'http://localhost:3001/dashboard') {
         const token = localStorage.getItem('token');
         const userNameSpan = document.getElementById('user-name');
 
         // Proteksi sisi klien
         if (!token) {
-            window.location.href = 'login.html';
+            window.location.href = 'http://localhost:3001/login';
             return;
         }
 
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(res => {
             if (!res.ok) {
                 localStorage.removeItem('token'); // Hapus token jika tidak valid
-                window.location.href = 'login.html';
+                window.location.href = 'http://localhost:3001/login';
                 throw new Error('Session expired or invalid token');
             }
             return res.json();
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutButton.addEventListener('click', (e) => {
             e.preventDefault();
             localStorage.removeItem('token'); // Hapus token dari localStorage
-            window.location.href = 'login.html'; // Redirect ke halaman login
+            window.location.href = 'http://localhost:3001/login'; // Redirect ke halaman login
         });
     }
 })
