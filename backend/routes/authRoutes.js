@@ -21,7 +21,7 @@ router.get('/google', passport.authenticate('google', {
 
 // Route callback setelah user login di Google
 router.get('/google/callback',
-    passport.authenticate('google', { session: false, failureRedirect: 'http://localhost:5500/frontend/pages/login.html' }),
+    passport.authenticate('google', { session: false, failureRedirect: 'http://127.0.0.1:3000/frontend/pages/login.html' }),
     (req, res) => {
         // User berhasil diautentikasi oleh Google.
         // 'req.user' sekarang berisi data user dari database kita (disediakan oleh passport)
@@ -35,7 +35,7 @@ router.get('/google/callback',
         const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
 
         // Redirect ke halaman sukses di frontend, kirim token via query param
-        res.redirect(`http://localhost:5500/frontend/pages/auth-success.html?token=${token}`);
+        res.redirect(`http://127.0.0.1:3000/frontend/pages/auth-success.html?token=${token}`);
     }
 )
 
