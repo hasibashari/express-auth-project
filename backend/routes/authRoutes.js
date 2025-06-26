@@ -21,7 +21,7 @@ router.get('/google', passport.authenticate('google', {
 
 // Route callback setelah user login di Google
 router.get('/google/callback',
-    passport.authenticate('google', { session: false, failureRedirect: 'http://localhost:3001/login' }),
+    passport.authenticate('google', { session: false, failureRedirect: '/login' }),
     (req, res) => {
         // User berhasil diautentikasi oleh Google.
         // 'req.user' sekarang berisi data user dari database kita (disediakan oleh passport)

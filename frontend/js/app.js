@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 registerMessage.style.color = 'green';
 
                 setTimeout(() => {
-                    window.location.href = 'login.html';
+                    window.location.href = '/login'; // Redirect ke halaman login setelah 2 detik
                 }, 2000);
 
 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('token', data.token);
 
                 // Redirect ke halaman dashboard
-                window.location.href = 'http://localhost:3001/dashboard';
+                window.location.href = '/dashboard';
 
             } catch (error) {
                 loginMessage.textContent = error.message;
@@ -83,18 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Logika Dashboard & Proteksi
-    if (window.location.pathname === 'http://localhost:3001/dashboard') {
+    if (window.location.pathname === '/dashboard') {
         const token = localStorage.getItem('token');
         const userNameSpan = document.getElementById('user-name');
 
         // Proteksi sisi klien
         if (!token) {
-            window.location.href = 'http://localhost:3001/login';
+            window.location.href = '/login';
             return;
         }
 
         // Ambil data user
-        fetch(`${API_URL}/auth/user`, {
+        fetch(`${API_URL}/auth/me`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}` // Kirim token di header
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).then(res => {
             if (!res.ok) {
                 localStorage.removeItem('token'); // Hapus token jika tidak valid
-                window.location.href = 'http://localhost:3001/login';
+                window.location.href = '/login';
                 throw new Error('Session expired or invalid token');
             }
             return res.json();
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         logoutButton.addEventListener('click', (e) => {
             e.preventDefault();
             localStorage.removeItem('token'); // Hapus token dari localStorage
-            window.location.href = 'http://localhost:3001/login'; // Redirect ke halaman login
+            window.location.href = '/login'; // Redirect ke halaman login
         });
     }
 })

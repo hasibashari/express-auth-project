@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const path = require("path");
-const { ensureAuthenticated } = require('../middleware/authMiddleware');
 
 const basePath = path.join(__dirname, "../../frontend/pages");
 
@@ -18,7 +17,7 @@ router.get("/auth-success", (req, res) => {
     res.sendFile(path.join(basePath, "auth-success.html"));
 });
 
-router.get("/dashboard", ensureAuthenticated, (req, res) => {
+router.get("/dashboard", (req, res) => {
     res.sendFile(path.join(basePath, "dashboard.html"));
 });
 
